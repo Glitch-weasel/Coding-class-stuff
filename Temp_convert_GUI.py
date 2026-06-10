@@ -34,7 +34,7 @@ class TemperatureConverter:
 class ConverterGUI:
     def __init__(self, root):
         self.converter = TemperatureConverter()
-        self.root = Tk()
+        self.root = root
         self.root.title("Temperature Converter")
         self.root.geometry("400x150")
 
@@ -49,12 +49,63 @@ class ConverterGUI:
         self.frames["to_cFrame"] = self.create_to_c_frame()
         self.frames["to_fFrame"] = self.create_to_f_frame()
 
+        for frame in self.frames.values():
+            frame.grid(row=0, column=0, sticky="nsew")
+
         self.show_frame("MainFrame")
 
 
-        def show_frame(self, name):
-            frame = self.frames[name]
-            frame.tkraise()
-        
+    def show_frame(self, name):
+        frame = self.frames[name]
+        frame.tkraise()
 
-        def
+
+    def create_main_frame(self):
+        frame = Frame(self.container)
+
+        Label(frame, font= "Veranda 16 bold", text= "Temperature converter"
+            ).pack()
+
+        Button(frame,
+            text="F to C",
+            command=lambda: self.show_frame("to_cFrame")
+            ).pack()
+
+        Button(frame,
+            text="C to F",
+            command=lambda: self.show_frame("to_fFrame")
+            ).pack()
+            
+        return frame
+        
+    def create_to_c_frame(self):
+        frame = Frame(self.container)
+
+        Label(frame, font= "Veranda 16 bold", text= "Fahrenheit to Centigrade"
+            ).pack()
+
+        Button(frame,
+            text="Home",
+            command=lambda: self.show_frame("MainFrame")
+            ).pack()
+
+        return frame
+        
+    def create_to_f_frame(self):
+        frame = Frame(self.container)
+
+        Label(frame, font= "Veranda 16 bold", text= "Centigrade to Fahrenheit"
+            ).pack()
+
+        Button(frame,
+            text="Home",
+            command=lambda: self.show_frame("MainFrame")
+            ).pack()
+
+        return frame
+    
+
+if __name__ == "__main__":
+    root = Tk()
+    app = ConverterGUI(root)
+    root.mainloop()
