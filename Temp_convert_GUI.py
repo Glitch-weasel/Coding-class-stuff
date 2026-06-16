@@ -20,11 +20,11 @@ class TemperatureConverter:
         except ValueError:
             return "Please enter a number"
         
-    def C_to_f():
+    def C_to_f(self, temp):
         try:
             temp = float(temp)
             if temp >= ABS_Z_C:
-                result = (float(temp)+32) / 5 * 9
+                result = (float(temp) * 9 / 5) +32
                 return f'{result:.1f} degrees Fahrenheit'
             else:
                 return "temperature too low"
@@ -89,6 +89,13 @@ class ConverterGUI:
             command=lambda: self.show_frame("MainFrame")
             ).pack()
 
+        self.entryc = Entry(frame)
+        self.entryc.pack()
+        
+        Button(frame, 
+               text= "Calculate"
+               ).pack()
+
         return frame
         
     def create_to_f_frame(self):
@@ -101,8 +108,26 @@ class ConverterGUI:
             text="Home",
             command=lambda: self.show_frame("MainFrame")
             ).pack()
+        
+        self.entryf = Entry(frame)
+        self.entryf.pack()
+        
+        Button(frame, 
+               text= "Calculate",
+               command= self.calculate_to_f
+               ).pack()
 
         return frame
+    
+    def calculate_to_c(self):
+        f = float(self.entryf.get())
+        result = (f - 32) * 5/9 
+        return result
+    
+    def calculate_to_f(self):
+        c = float(self.entryc.get())
+        result = (c * 9/5) + 32
+        return result
     
 
 if __name__ == "__main__":
